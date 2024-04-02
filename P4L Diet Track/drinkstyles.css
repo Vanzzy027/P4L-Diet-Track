@@ -1,0 +1,99 @@
+
+img{
+    float: left;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 1px 1px 8px black;
+}
+
+body {
+    /* change to image */
+    background-color: gray;
+}
+
+h2 {
+    text-decoration: underline;
+    font-size: 34px;
+}
+
+span {
+   font-weight: bold;
+   font-size: 19px;
+}
+
+button {
+    cursor: pointer;
+    box-shadow: 0 3px #999;
+    background:linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
+	background-color:#c62d1f;
+}
+
+button:active{
+    box-shadow: 0 1px #666;
+    transform: translateY(4px);
+  }
+
+  .drinkPageDescription, p {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+#searchButton {
+    width: 100%;
+}
+
+#drinkHeading, #drinkSubheading {
+    font-family: 'Raleway', sans-serif;
+}
+
+#headerSeperator {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #333;
+    color: #333;
+    text-align: center;
+    margin-bottom: 25px;
+}
+#headerSeperator:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: white;
+    margin-bottom: 25px;
+}
+
+#pageInstructions {
+    text-align: center;
+    padding: 18px 18px 0px 18px;
+}
+
+#initialItemsContainer {
+    background-color: white;
+}
+
+
+#resultsContainer {
+   
+    /* margin: 10px; */
+    padding-left: 5px;
+    padding-right: 5px;
+    line-height: 1.3;
+}
+
+.rowContainer {
+    margin-bottom: 5px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.drinkInfo {
+    clear: right;
+    font-size: 17px;
+}

@@ -1,0 +1,123 @@
+.menu {
+    background: #333;
+}
+
+.mainHeader {   
+    color: white;
+    background-image: url(./Images/background.jpeg); 
+}
+.homeimage {
+    margin-top: 10px;  
+    border: 0px;
+    display: block;
+    margin-left: auto;      
+    margin-right: auto;
+    width: 95%;
+  }
+
+#mainHeader{
+    border-style: solid;
+}
+
+#mainHeading {
+    text-decoration: underline;
+    font-size: 45px;
+    font-family: 'Raleway', sans-serif;
+}
+
+#foodHeading, #foodSubHeading{
+    font-family: 'Raleway', sans-serif;
+}
+
+#foodPageDescription, p {
+    font-family: 'Source Sans Pro', sans-serif;
+    text-align: center;
+  }
+label {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+h2 {
+    text-decoration: underline;
+    font-size: 34px;
+    text-align: center;
+}
+
+h4 {
+    text-align: center;
+}
+
+#foodSubmit {
+    width: 40%;       
+}
+
+#buttonContainer {
+    text-align: center;
+  }
+  
+
+body {
+    background-image: url(./Images/mainbackground.png);
+}
+
+.grid-x{
+    border-style: solid;
+    margin-bottom: 10px;
+    border-radius: 15px;  
+    background-color: white;  
+}
+
+#food-pic0, #food-pic1, #food-pic2, #food-pic3, #food-pic4, #food-pic5, #food-pic6, #food-pic7, #food-pic8, #food-pic9 {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    box-shadow: 1px 1px 8px black;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+#spacing {
+    margin-top: 18px;
+}
+
+#ingredientSection0, #ingredientSection1, #ingredientSection2, #ingredientSection3, #ingredientSection4, #ingredientSection5, #ingredientSection6, #ingredientSection7, #ingredientSection8, #ingredientSection9 {
+    font-weight: bold;
+    font-size: 25px;
+    text-decoration: underline;    
+}
+
+button {
+    cursor: pointer;
+    box-shadow: 0 3px #999;
+    background:linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
+	background-color:#c62d1f;
+}
+
+button:active{
+    box-shadow: 0 1px #666;
+    transform: translateY(4px);
+  }
+
+
+
+@media only screen and (max-width: 639px) {
+    #food-pic0, #food-pic1, #food-pic2, #food-pic3, #food-pic4, #food-pic5, #food-pic6, #food-pic7, #food-pic8, #food-pic9 {
+        margin-bottom: 0px;
+    }
+    #spacing {
+        margin-top: 5px;
+    }
+    #saveBtn0, #saveBtn1, #saveBtn2, #saveBtn3, #saveBtn4, #saveBtn5, #saveBtn6, #saveBtn7, #saveBtn8, #saveBtn9 {
+      text-align: center;
+    }   
+    #ingredientSection0, #ingredientSection1, #ingredientSection2, #ingredientSection3, #ingredientSection4, #ingredientSection5, #ingredientSection6, #ingredientSection7, #ingredientSection8, #ingredientSection9{    
+        text-align:center;
+    }
+    .homeimage{
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 95%;        
+    }
+             
+  }
+
