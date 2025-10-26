@@ -1,0 +1,153 @@
+/* Custom Fonts - Kept for form styling */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:500&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+
+/* -------------------------- */
+/* MODAL OVERLAY STYLING */
+/* -------------------------- */
+
+.modal-overlay {
+    /* Make the modal cover the entire screen */
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* Dark semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.7); 
+    
+    /* Center the modal content */
+    display: none; /* Initially hidden, show with JS */
+    align-items: center; 
+    justify-content: center;
+    
+    /* Ensure it's on top of everything */
+    z-index: 1000; 
+}
+
+.modal-content {
+    /* Container for the form */
+    position: relative;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    
+    /* Restrict width and allow vertical scroll if content overflows */
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh; /* Max height before scrolling */
+    overflow-y: auto;
+    
+    /* Optional: Slight shadow for depth */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    
+    /* Stop clicks inside from bubbling to the overlay */
+    pointer-events: auto;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    line-height: 1;
+}
+.close-btn:hover {
+    color: #FA4B37;
+}
+
+.contact-title {
+    font-size: 32px;
+    padding-bottom: 20px;
+    color: #2E3D49;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+
+/* -------------------------- */
+/* FORM STYLING (Refactored) */
+/* -------------------------- */
+
+/* This is the new container for the form that replaced the old .cc */
+.contact-form-container form {
+    width: 100%;
+    /* No need for margins/heights from old .cc form */
+}
+
+/* Group for side-by-side inputs (First/Last Name) */
+.name-group {
+    display: flex;
+    gap: 15px; /* Spacing between first and last name inputs */
+    margin-bottom: 10px;
+}
+.name-group > div {
+    flex: 1;
+}
+
+.contact-form-container form label {
+    /* Removed 'position: absolute;' and adjusted font/margin */
+    display: block;
+    color: #2E3D49;
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+.imp {
+    color: red;
+}
+
+.contact-form-container form input[type="text"], 
+.contact-form-container form input[type="email"] {
+    /* Applied uniform styles to all text and email inputs */
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px lightgray;
+    border: 1px solid rgba(0,0,0,0.2);
+    outline: none;
+    color: #2E3D49;
+    font-weight: 600;
+    width: 100%; /* Important for inputs to fill the container */
+    box-sizing: border-box; /* Include padding/border in the width */
+}
+
+.contact-form-container form textarea {
+    width: 100%;
+    min-height: 100px; /* Use min-height instead of fixed height */
+    box-shadow: inset 0 0 5px lightgray;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 5px;
+    outline: none;
+    color: #2E3D49;
+    font-weight: 600;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    resize: vertical; /* Allow resizing only vertically */
+}
+
+#csubmit {
+    margin-top: 10px; 
+    background: linear-gradient(to right, #FA4B37, #DF2771);
+    border-radius: 5px;
+    border: none; /* Changed from border-style: none */
+    outline: none;
+    width: 100%;
+    padding: 15px 25px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#csubmit:hover {
+    background: linear-gradient(to right, #DF2771, #FA4B37); /* Simple hover effect */
+}
+

@@ -1,95 +1,161 @@
-//Global Array variable to save to local storage
-var globalFoodArray = [];
+// Global variable to store current search results for quick favoriting access
+var globalFoodArray = []; 
 
-//When document is ready, hide menu items
+// Targeting DOM elements
+var $foodSubmit = $("#foodSubmit");
+var $foodSearch = $("#foodSearch");
+var $resultsContainer = $("#resultsContainer");
+
+// Elements for the initial hero section (matching the corrected HTML)
+var $heroImageContainer = $("#heroImageContainer");
+var $introTextContent = $("#introTextContent");
+
+// Edamam API Credentials
+var EDAMAM_APP_ID = "3a94af5c";
+var EDAMAM_APP_KEY = "dcd84ae2c299d0440ebdbbe0b34bfb80"; 
+
+// Base URL for the Edamam Recipe Search API V2. 
+// We append the app_id/key and query later.
+var EDAMAM_BASE_URL = "https://api.edamam.com/api/recipes/v2?type=public"; 
+
+
+// ----------------------------------------------------
+// 1. INITIAL SETUP
+// ----------------------------------------------------
 $(document).ready(function(){
+    // Hide the placeholder recipe card on load
     $("#menu0").hide();
-    $("#menu1").hide();
-    $("#menu2").hide();
-    $("#menu3").hide();
-    $("#menu4").hide();
-    $("#menu5").hide();
-    $("#menu6").hide();
-    $("#menu7").hide();
-    $("#menu8").hide();
-    $("#menu9").hide();
-})
+    
+    // Ensure the results container is empty on load
+    $resultsContainer.empty();
+});
 
-//Function for when the food is typed out and clicked to search
-$("#foodSubmit").on("click", function(event){
-    event.preventDefault();  
-  //on foodSubmit click hide main menu
-    $(".hidden").hide();
- //on foodSubmit click show menu items
-    $("#menu0").show();
-    $("#menu1").show();
-    $("#menu2").show();
-    $("#menu3").show();
-    $("#menu4").show();
-    $("#menu5").show();
-    $("#menu6").show();
-    $("#menu7").show();
-    $("#menu8").show();
-    $("#menu9").show();
-//makes the searched food a variable called foodIngredient
-var foodIngredient = $("#foodSearch").val();
-//URL including the APP ID and APP Key
-var queryURL = "https://api.edamam.com/search?q=" + foodIngredient +  "&app_id=3a94af5c&app_key=dcd84ae2c299d0440ebdbbe0b34bfb80"
 
-$.ajax({
-    url: queryURL,
-    method: "GET"
-}).then(function(response){   
-    console.log(response);
-    //Loop for 10 recipes to load on page
-    for (var i = 0; i < 10; i++){
-        //Saves picture and adds link to it and then appends the page        
-        var foodPicture = response.hits[i].recipe.image;
-        var foodPictureEl = $("<a href = " + response.hits[i].recipe.url + "><img src =" + foodPicture + "></a>");        
-        $("#food-pic" + i).append(foodPictureEl);
-        //Saves recipe name from AJAX call and prepends it
-        var recipeName = response.hits[i].recipe.label;
-        $("#ingredientSection" + i).prepend(recipeName);
-        //this saves the recipe into a variable called ingredientARR
-        var ingredientARR = response.hits[i].recipe.ingredientLines;
-        var ingredients = $("#ingredients" + i)
-        //this creates a button using fontawesome <i> and adds a heart and color
-        var buttonEl = $("<button><i class = 'fas fa-heart'" + "data-index=" + i + "></i></button>");
-        buttonEl.attr('class', 'button favoriteButton');         
-        buttonEl.attr("data-index", i)              
-        $("#saveBtn" + i).append(buttonEl);
+// ----------------------------------------------------
+// 2. EVENT LISTENER FOR SEARCH
+// ----------------------------------------------------
+$foodSubmit.on("click", function(event){
+    event.preventDefault();  
+    
+    var foodIngredient = $foodSearch.val().trim();
+    if (foodIngredient === '') {
+        return; // Exit if search bar is empty
+    }
+    
+    // CRITICAL FIX: Hide the introductory text and image after the first search
+    $heroImageContainer.hide();
+    $introTextContent.hide(); 
 
-        //this is a loop to create a list of ingredients and appends it
-        for (var j = 0; j < ingredientARR.length; j++){                          
-             var ingredientList = $("<li>" + ingredientARR[j] + "</li>");             
-             ingredients.append(ingredientList);
-         }
-    }       
-    //this waits for a click in the results container to save the button into an object called savedRecipe
-    $(".button").on("click", function (e){        
-        var name = $(e.target).data("index");        
-        var savedRecipe = {
-            name: response.hits[name].recipe.label,
-            ingredients: response.hits[name].recipe.ingredientLines,
-            link: response.hits[name].recipe.url,
-            img: response.hits[name].recipe.image
-        };           
-              
-        addToFavorites();
-        
-        //function to add to favorites for storage and other pages
-        function addToFavorites(){
-            var test = localStorage.getItem('food')            
-            if(test === null){
-                var array = [];
-                array.push(savedRecipe);                
-                localStorage.setItem('food', JSON.stringify(array));
-            } else{
-                var globalFoodArray = JSON.parse(localStorage.getItem('food'));
-                globalFoodArray.push(savedRecipe);
-                localStorage.setItem('food', JSON.stringify(globalFoodArray));
+    // Clear previous results before running a new search
+    $resultsContainer.empty();
+    
+    // CONSOLIDATED API URL CONSTRUCTION: Correctly formats the V2 API call
+    var queryURL = EDAMAM_BASE_URL + 
+        "&q=" + foodIngredient + 
+        "&app_id=" + EDAMAM_APP_ID + 
+        "&app_key=" + EDAMAM_APP_KEY;
+
+    searchFood(queryURL);
+});
+
+
+// ----------------------------------------------------
+// 3. EVENT LISTENER FOR SAVING FAVORITES (Delegated)
+// ----------------------------------------------------
+// Listens for clicks on any element with the class 'save-btn' inside the results container
+$resultsContainer.on("click", ".save-btn", function(e){
+    // Use closest() to reliably find the button and its data attribute
+    var $targetButton = $(e.target).closest('.save-btn');
+    var index = $targetButton.data("index"); 
+    
+    // Check if the recipe data exists in our current results array
+    if (globalFoodArray[index]) {
+        addToFavorites(globalFoodArray[index]);
+    }
+});
+
+
+// ----------------------------------------------------
+// 4. AJAX SEARCH FUNCTION
+// ----------------------------------------------------
+function searchFood(queryURL) {
+    globalFoodArray = [];
+
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(response){   
+        console.log("Edamam API Response:", response);
+
+        var hits = response.hits;
+        if (hits.length === 0) {
+            $resultsContainer.append('<h3 class="text-center" style="font-size: 1.8rem; padding: 20px;">Sorry, no food results were found :(</h3>');
+            return;
+        }
+
+        for (var i = 0; i < Math.min(hits.length, 10); i++) {
+            var recipe = hits[i].recipe;
+            globalFoodArray.push(recipe); 
+            
+            // --- BUILD THE RECIPE CARD STRUCTURE ---
+            var $card = $('<div>').addClass('grid-x recipe-card').attr('id', 'menu' + i);
+            
+            // 1. IMAGE CELL
+            var $imageDiv = $('<div>').addClass('recipe-image').css('background-image', 'url(' + recipe.image + ')'); 
+            var $imageLink = $('<a>').attr('href', recipe.url).attr('target', '_blank').append($imageDiv); 
+            var $imageCell = $('<div>').addClass('cell small-12 medium-5 text-center').append($imageLink);
+            
+            // 2. DETAILS CELL
+            var $title = $('<div>').addClass('recipe-title').text(recipe.label);
+            var $ingList = $('<ul>').addClass('ingredient-list');
+            
+            // Ingredient List Items
+            for (var j = 0; j < recipe.ingredientLines.length; j++) {
+                $ingList.append($('<li>').text(recipe.ingredientLines[j]));
             }
-        }       
+            
+            var $instructions = $('<p>').css({fontSize: '1.2rem', marginTop: '10px'}).html('Source: <a href="' + recipe.url + '" target="_blank">' + recipe.source + '</a>');
+            
+            var $saveBtn = $('<button>')
+                .addClass('save-btn')
+                .attr('data-index', i) // Index needed for favoriting function
+                .html('<i class="fas fa-bookmark"></i> Save'); 
+                
+            var $saveBtnContainer = $('<div>').addClass('save-button-container').append($saveBtn);
+
+            var $detailsCell = $('<div>').addClass('cell small-12 medium-7 recipe-details')
+                .append($title, $ingList, $instructions, $saveBtnContainer); 
+            
+            // --- ASSEMBLE & APPEND ---
+            $card.append($imageCell, $detailsCell);
+            $resultsContainer.append($card);
+        }
     });
-});
-});
+}
+
+
+// ----------------------------------------------------
+// 5. FAVORITES HANDLING FUNCTION
+// ----------------------------------------------------
+function addToFavorites(savedRecipe) {
+    if (!savedRecipe) return;
+
+    // Format the recipe object to match your local storage structure
+    var formattedRecipe = {
+        name: savedRecipe.label,
+        ingredients: savedRecipe.ingredientLines,
+        link: savedRecipe.url,
+        img: savedRecipe.image
+    };
+
+    var storedData = localStorage.getItem('food');
+    var array = storedData ? JSON.parse(storedData) : [];
+    
+    // Add new recipe
+    array.push(formattedRecipe); 
+    
+    // Save back to localStorage
+    localStorage.setItem('food', JSON.stringify(array));
+    
+    console.log("Recipe saved to favorites:", formattedRecipe.name);
+}

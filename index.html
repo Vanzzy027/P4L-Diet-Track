@@ -8,32 +8,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Raleway&family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/foundation.css">
-    <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="css/app.css"> -->
     <title>P4L Diet Tracker!</title>
 
+    <!-- swiper css link  -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
-    <!-- swiper css link  -->
-   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-   <!-- font awesome cdn link  -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-   <!-- custom css file link  -->
-   <link rel="stylesheet" href="css/style.css"> 
-   <script type="text/javascript" src="script.js"></script>
-	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-	<script>
-		$(window).on('scroll', function(){
-  			if($(window).scrollTop()){
-  			  $('nav').addClass('black');
- 			 }else {
- 		   $('nav').removeClass('black');
- 		 }
-		})
-	</script>
-
-
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="css/style.css"> 
+    <script type="text/javascript" src="script.js"></script>
 
 </head>
 
@@ -45,17 +31,7 @@
                 <p id="titleDescription">A place to find recipes for your favorite dishes and mixed drinks</p>
             </div>
         </div>
-
-        <ul class="menu expanded text-center">
-            <li><a href="index.html" style = "color:white;" >Home</a></li>
-            <li><a href="food.html" style = "color:white;">Food</a></li>
-            <li><a href="drinks.html" style = "color:white;">Drinks</a></li>
-            <li><a href="" style = "color:white;">Get Started</a></li>
-            <li><a href="favorites.html" style = "color:white;">Favorites</a></li>
-        </ul>
     </header>
-
-
 
     <main>
         <hr class="style-eight">
@@ -69,81 +45,99 @@
         </div>
         <hr class="style-eight">
     </main>
+    
+    <!-- REQUIRED GLOBAL START MODAL STRUCTURE (Hidden by default in CSS) -->
+    <div id="startModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            
+            <div class="grid-x grid-padding-x align-center" style="max-width: 800px;">
+                <div class="cell large-12 text-center">
+                    <h2 style="margin-bottom: 20px;">Let's Get Started!</h2>
+                    <p>Tell us a bit about yourself to get personalized calorie goals.</p>
+                </div>
 
+                <form id="profileForm" class="cell large-10 medium-12">
+                    <label>Gender
+                        <select id="userGender" required>
+                            <option value="">Select...</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </label>
 
-   
-<!-- footer section starts  -->
+                    <label>Age (years)
+                        <input type="number" id="userAge" min="15" max="100" placeholder="e.g., 30" required>
+                    </label>
 
-<section class="footer">
+                    <label>Weight (kg)
+                        <input type="number" id="userWeight" min="40" placeholder="e.g., 70" required>
+                    </label>
+                    
+                    <label>Height (cm)
+                        <input type="number" id="userHeight" min="100" placeholder="e.g., 175" required>
+                    </label>
+                    
+                    <label>Activity Level
+                        <select id="userActivity" required>
+                            <option value="">Select your weekly activity...</option>
+                            <option value="1.2">Sedentary (little or no exercise)</option>
+                            <option value="1.375">Lightly Active (1-3 days/week)</option>
+                            <option value="1.55">Moderately Active (3-5 days/week)</option>
+                            <option value="1.725">Very Active (6-7 days/week)</option>
+                            <option value="1.9">Extremely Active (Daily intense exercise)</option>
+                        </select>
+                    </label>
 
-    <div class="box-container">
- 
-       <div class="box">
-          <h3>quick links</h3>
-          <a href="index.html"> <i class="fas fa-angle-right"></i> Home</a>
-          <a href="food.html"> <i class="fas fa-angle-right"></i> Food</a>
-          <a href="drinks.html"> <i class="fas fa-angle-right"></i> Drinks</a>
-          <a href="favorites.html"> <i class="fas fa-angle-right"></i> Favorites</a>
-          <a href="Login.html"> <i class="fas fa-angle-right"></i> Get Started</a>
-          <a href="contact.html"> <i class="fas fa-angle-right"></i> Contact Us</a>
-          
-       </div>
- 
-       <div class="box">
-          <h3>extra links</h3>
-          <a href="#"> <i class="fas fa-angle-right"></i> ask questions</a>
-          <a href="#"> <i class="fas fa-angle-right"></i> about us</a>
-          <a href="#"> <i class="fas fa-angle-right"></i> privacy policy</a>
-          <a href="#"> <i class="fas fa-angle-right"></i> terms of use</a>
-       </div>
- 
-       <div class="box">
-          <h3>contact info</h3>
-          <a href="tel:+254112178578"> <i class="fas fa-phone"></i> +254 112 178 578</a>
-          <a href="tel:+254733348027"> <i class="fas fa-phone"></i> +254 733 348 027 </a>
-          <a href="mailto:vanzzyspinet@gmail.com"> <i class="fas fa-envelope"></i>vanzzyspinet@gmail.com </a>
-          <a href="#"> <i class="fas fa-map"></i> Embu Kenya, Kenya  </a>
-       </div>
- 
-       <div class="box">
-          <h3>follow us</h3>
-          <a href="https://wa.me/254112178578?text=Hello%20P4L.%20I%20need%20to%20talk%20for%20business"><i class="fab fa-whatsapp"></i>WhatsApp</a>            
-          <a href="https://www.facebook.com/evan.kariuki.140"> <i class="fab fa-facebook-f"></i> Facebook </a>
-          <a href="https://x.com/EvansonKariuk20?t=qQZx0zk3midQAfZPJ_G1bA&s=09"> <i class="fab fa-twitter"></i> Twitter </a>
-          <a href="https://instagram.com/vansking254?igshid=YWYwM2I1ZDdmOQ=="> <i class="fab fa-instagram"></i> Instagram </a>
-          <a href="https://www.linkedin.com/in/vanzzy-spinet-243558233?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"> <i class="fab fa-linkedin"></i> Linked-in </a>
-       </div>
- 
+                    <button type="submit" class="button primary expanded" id="calculateBtn">Calculate Goals</button>
+                </form>
+
+                <div id="resultsDisplay" class="cell large-10 medium-12 callout success" style="display: none; margin-top: 20px;">
+                    <h4>Your Daily Goal:</h4>
+                    <p>BMR: <span id="bmrValue"></span> calories/day</p>
+                    <p>TDEE: <span id="tdeeValue"></span> calories/day</p>
+                </div>
+            </div>
+        </div>
     </div>
- 
-    <div class="credit"> 
-             
-             <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved @2024 <p>This website was made by: <a href="#" target="_blank" >P4L DEVS.</p></a>
-             </p>
-             </div>
- 
- </section>
- 
- <!-- footer section ends -->
- 
- 
- 
- 
- 
- 
- 
- 
- 
- <!-- swiper js link  -->
- <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
- 
- <!-- custom js file link  -->
- <script src="js/script.js"></script>
+    <!-- END GLOBAL START MODAL STRUCTURE -->
 
+    <nav class="mobile-tab-bar">
+        <a href="index.html" class="tab-item active">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="food.html" class="tab-item">
+            <i class="fas fa-utensils"></i>
+            <span>Food</span>
+        </a>
+        <a href="drinks.html" class="tab-item">
+            <i class="fas fa-cocktail"></i>
+            <span>Drinks</span>
+        </a>
+        <a href="favorites.html" class="tab-item">
+            <i class="fas fa-heart"></i>
+            <span>Favs</span>
+        </a>
+        <a href="contact.html" class="tab-item">
+            <i class="fas fa-envelope"></i>
+            <span>Contact</span>
+        </a>
+        <!-- CHANGED: Link updated for app.js to handle the modal -->
+        <a href="#" class="tab-item" id="startTabLink">
+            <i class="fas fa-user-plus"></i>
+            <span>Start</span>
+        </a>
+    </nav>
+    
+    <!-- SCRIPT LINKS (MUST BE at the end of the body) -->
     <script src="js/vendor/jquery.js"></script>
     <script src="js/vendor/what-input.js"></script>
     <script src="js/vendor/foundation.js"></script>
     <script src="js/app.js"></script>
+    
+    <!-- Other scripts -->
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <script src="script.js"></script>
 </body>
-
 </html>
